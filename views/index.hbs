@@ -1,0 +1,19 @@
+<div class="row">
+    {{#if travels}}
+        {{#each travels}}
+            {{> cardViaje}}
+        {{/each}}
+    {{else}}
+        <div class="bg-dark mx-auto">
+            {{#if user.admin}}
+                    <a class="text-center" href="/travel/create">
+                    No existen viajes · Crea Nuevo destino!</a>
+            {{else}}
+                    <h1 class="text-white">Todavía no hay viajes. Estamos trabajando en ello.</h1>
+                    <img class="img-fluid" src="https://image.flaticon.com/icons/png/512/49/49728.png" 
+                    alt="Work in progress">
+            {{/if}}
+        </div>
+    {{/if}}
+
+</div>

@@ -1,0 +1,10 @@
+<form action="/travel/create" enctype="multipart/form-data" method="POST">
+    <input name="destiny" type="text" placeholder="Destino.." required>
+    <input min="100" step="20" name="price" type="number" placeholder="Precio.." required>
+    <input max="50" step="5" name="discount" type="number" placeholder="Descuento..">
+    <input type="datetime-local" name="dateInit" placeholder="Fecha Salida.."required>
+    <input type="datetime-local" name="dateTurn" placeholder="Fecha Vuelta.."required>
+    <form action="/uploadmultiple"  enctype="multipart/form-data" method="POST">
+    <input type="file" name="travelPics"  value="Sube Fotografías" multiple="10">
+    <button type="submit">Sube la Vivienda</button>
+</form>

@@ -1,0 +1,30 @@
+<div class="col-md-4 col-sm-12 card">
+    <a href="/travel/detail/{{id}}">
+        <div class="card-header">
+            <img src="{{imgpath}}" alt="Viaja a {{destiny}} por {{format price}}" class="img-fluid">
+        </div>
+        <div class="card-body">
+            <div>
+                <h3>{{destiny}}</h3>
+            </div>
+            <div>
+                <h5>{{format price}}</h5>
+            </div>
+            <div>
+                {{#if discount}}
+                <h5 class="text-success">{{extra discount}}</h5>
+                {{else}}
+                <h5>Descuento No Disponible</h5>
+                {{/if}}
+            </div>
+            <div class="mt-4">
+                <p>Ida: {{time dateInit}}</p>
+                <p>Vuelta: {{time dateTurn}}</p>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <h6>Creado por: {{author}} </h6>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,27 @@
+<nav>
+    <div>
+        <h3>sequelizeTravels</h3>
+    </div>
+    <div>
+        <a href="/API">API</a>
+        {{#with user}}
+            <small>{{name}}</small>
+        {{#unless admin}}
+        <div>
+            <form action="user/goAdmin/?_method=PUT" method="POST">
+                <button type="submit">Zona Admin</button>
+            </form>
+        </div>
+        {{/unless}}
+        {{#if admin}}
+            <a href="/travel/create">Crear Viaje</a>
+        {{/if}}
+            <a href="/user/logOut" id="logOut">Desconectar</a>
+        {{/with}}
+
+        {{#unless user}}
+            <a href="/user/register">Registro</a>
+            <a href="/user/logIn">Acceso</a>
+        {{/unless}}
+    </div>
+</nav>

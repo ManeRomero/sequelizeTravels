@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 95vw;
+  margin: auto;
+}
+body section {
+  min-height: 65vh;
+}
+
+a {
+  padding: 1vw;
+  color: gold;
+  font-weight: 600;
+  background-color: transparent;
+  border: 1px solid gold;
+  transition: 0.2s ease-in-out;
+  text-decoration: none;
+  padding: 1vw;
+}
+a:hover {
+  transform: translateY(-7px);
+  text-decoration: none;
+  background-color: gold;
+  color: #262c31;
+}
+
+button {
+  background-color: black;
+  color: gold;
+  padding: 1vw;
+}
+
+nav,
+footer {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  letter-spacing: 3px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #262c31;
+}
+nav small,
+footer small {
+  color: gold;
+}
+nav h3,
+footer h3 {
+  color: gold;
+  font-style: oblique;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.card a {
+  color: black;
+  text-decoration: none;
+  border: 0;
+}
+.card a:hover {
+  text-decoration: none;
+  background-color: rgba(0, 255, 21, 0.2);
+}
+.card p {
+  font-size: 0.7em;
+  display: block;
+  letter-spacing: 2px;
+  border-bottom: 1px solid gold;
+}
+
+form {
+  margin: 5vh auto;
+  width: 60%;
+  background-color: gold;
+  display: flex;
+  flex-direction: column;
+}
+form input {
+  cursor: pointer;
+  outline-style: ridge;
+  outline-width: 1px;
+  padding: 3vw;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px gold;
+  color: #262c31;
+  z-index: 1000;
+}
+form input::placeholder {
+  color: #262c31;
+  font-size: 2em;
+}
+
+#logOut:hover {
+  background: red;
+  color: white;
+}
+
+button {
+  background-color: transparent;
+  color: black;
+  border: 3px solid black;
+}
+
+.detailInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+  border-bottom: 2px solid gold;
+}
+.detailInfo h1,
+.detailInfo h3 {
+  padding: 1vw;
+}
+.detailInfo small {
+  padding: 1vw;
+}
+.detailInfo p {
+  font-size: 0.7em;
+  display: block;
+  letter-spacing: 2px;
+  border-bottom: 1px solid gold;
+}
+
+.apiRow {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  border-bottom: 1px solid gold;
+}
+
+.mail h1 {
+  text-align: center;
+  background-color: yellow;
+}
+.mail small {
+  color: grey;
+}
+.mail a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border: 3px solid black;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */

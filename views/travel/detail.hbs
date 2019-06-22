@@ -1,0 +1,28 @@
+
+{{#with travel}}
+<div class="container">
+    <div class="detailInfo mt-4">
+        <h1>{{destiny}}</h1>
+        <div class="d-flex">
+            <h3>{{format price}}</h3>
+            {{#if discount}}
+            <h3 class="text-success">{{extra discount}}</h3>
+            {{else}}
+            <h3>Descuento No Disponible</h3>
+            {{/if}}
+        </div>
+    </div>
+
+    <div>
+        {{#each ../images}}          
+            <img class="img-fluid col-md-3 col-sm-12" src="/uploads/{{path}}" alt="Foto ">
+        {{/each}}
+    </div>
+
+    <div class="row mt-2 detailInfo">
+        <p>Fecha Salida: {{time dateInit}}</p>
+        <p>Fecha Vuelta: {{time dateTurn}}</p>
+        <p>Creado Por: {{author}}</p>
+    </div>
+</div>
+{{/with}}

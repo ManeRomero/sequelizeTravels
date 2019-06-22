@@ -1,0 +1,10 @@
+<h3>Selecciona la imagen principal</h3>
+<form action="/travel/create/mainPic" method="POST" class="row">    
+        {{#each uploadedImages}}
+            <div class="col-md-3 col-sm-12 card">
+                <img class="img-fluid" src="/uploads/{{this.path}}" alt="Foto Viaje">
+                <input type="radio" name="select" value="{{this.id}}-{{this.TravelId}}" required>
+            </div>
+        {{/each}}
+        <input type="submit" value="Selecciona">
+</form>
