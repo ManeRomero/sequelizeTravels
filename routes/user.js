@@ -10,6 +10,8 @@ router.post('/logIn', logIn)
 router.get('/logOut', logOut)
 router.put('/goAdmin', admin)
 router.get('/activate/:hash', activateUser)
+router.get('/list', helper.isAdmin, listUsers)
+router.delete('/delete/:idToDelete/', helper.isAdmin, deleteUser)
 
 async function registerForm(req, res, next) {
     res.render('user/signup')
@@ -97,6 +99,29 @@ async function activateUser(req, res) {
     helper.updateActive(id)
     
     controller.startSession(req, res, data)
+}
+
+async function listUsers (req, res) {
+    let users = await helper.listUsers()
+    req.session.admin = true
+
+    res.render('user/usersList', {
+        users
+    })
+}
+
+async function deleteUser (req, res) {
+    console.log('AQUÍ ENTRA DELETE');
+    let id = req.params.idToDelete
+    let erase = await helper.deleteUser(id)
+    
+    if (erase === 1) {
+        req.flash('success_msg', 'Usuario eliminado satisfactoriamente')
+        res.redirect('/user/list')
+    } else {
+        req.flash('error_msg', 'Hubo problemas con la eliminación del usuario')
+        res.redirect('/user/list')
+    }
 }
 
 module.exports = router;

@@ -139,6 +139,21 @@ isAdmin = async (req, res, next) => {
     }
 }
 
+let listUsers = async () => {
+    let data = await model.User.findAll()
+    return data
+}
+
+let deleteUser = async (id) => {
+    let delUser = await model.User.destroy({
+        where: {
+            id
+        },
+        force: true, // CUANDO EL OBJETO sequelize TIENE LA PROPIEDAD 'paranoid: true', HEMOS DE 'FORZAR' EL BORRADO ASÍ
+    })
+    return delUser
+}
+
 module.exports = {
     checkMail,
     encryptPassword,
@@ -150,5 +165,7 @@ module.exports = {
     getUserDatabyId,
     checkActivation,
     updateActive,
-    isAdmin
+    isAdmin,
+    listUsers,
+    deleteUser
 }

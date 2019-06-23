@@ -1,0 +1,35 @@
+<div class="userList row">
+
+    <div class="col-md-3 col-sm-12 text-center">
+        <h4 class="">{{name}}</h4>
+        <small class="p-4">{{email}}</small>
+    </div>
+
+    <div class="col-md-3 col-sm-12 text-center">
+        {{#if active}}
+            <small class="p-4">Activado</small>
+        {{/if}}
+    </div>
+
+    {{#if admin}}
+        <div class="col-md-3 col-sm-12 text-center">
+            <small class="p-4"><i class="fab fa-expeditedssl"></i> Admin</small>
+        </div>
+    {{else}}
+
+        <div class="col-md-3 col-sm-12 text-center">
+            <a href="/user/edit/{{id}}" class="btn btn-sm btn-outline-info">
+                <i class="fas fa-user-edit"></i> Editar
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-12 text-center">
+            <form action="/user/delete/{{id}}/?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                    <i class="fas fa-user-slash"></i> Eliminar
+                </button>
+            </form>
+        </div>
+
+    {{/if}}
+</div>

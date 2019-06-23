@@ -5,11 +5,11 @@ const multerConfig = require('../config/multer')
 const imageController = require('../controller/image')
 const helper = require('../helpers/user')
 
-router.get('/create',helper.isAdmin, travelForm)
-router.post('/create',helper.isAdmin, multerConfig.array('travelPics', 10), createTravel)
+router.get('/create', helper.isAdmin, travelForm)
+router.post('/create', helper.isAdmin, multerConfig.array('travelPics', 10), createTravel)
 router.get('/detail/:id', showTravel)
-router.get('/update/:id',helper.isAdmin, editTravelForm)
-router.post('/create/mainPic',helper.isAdmin, postMainPic)
+router.get('/update/:id', helper.isAdmin, editTravelForm)
+router.post('/create/mainPic', helper.isAdmin, postMainPic)
 
 /* FUNCTIONS */
 

@@ -31,12 +31,6 @@ a {
     }
 }
 
-button {
-    background-color: black;
-    color: gold;
-    padding: 1vw
-}
-
 nav,
 footer {
     position: sticky;
@@ -90,24 +84,25 @@ footer {
 form {
     margin: 5vh auto;
     width: 60%;
-    background-color: gold;
     display: flex;
     flex-direction: column;
 
     input {
         cursor: pointer;
-        outline-style: ridge;
-        outline-width: 1px;
         padding: 3vw;
         background: transparent;
         border: 0;
-        border-bottom: 1px gold;
         color: rgb(38, 44, 49);
         z-index: 1000;
+        outline-style: none;
+        border-bottom: 3px solid gold;
+        width: 50%;
+        margin: auto;
 
         &::placeholder {
             color: rgb(38, 44, 49);
-            font-size: 2em;
+            font-size: 1em;
+            text-align: center
         }
     }
 }
@@ -115,12 +110,6 @@ form {
 #logOut:hover {
     background: red;
     color: white
-}
-
-button {
-    background-color: transparent;
-    color: black;
-    border: 3px solid black
 }
 
 .detailInfo {
@@ -171,4 +160,18 @@ button {
         border: 3px solid black;
         cursor: pointer;
     }
+}
+
+.userList {
+    border: 1px solid grey;
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.btn-sm {
+    width: 50%;
+    margin: auto
 }
