@@ -163,7 +163,8 @@ form {
 }
 
 .userList {
-    border: 1px solid grey;
+    border: 0;
+    border-bottom: 3px solid gold;
     width: 90%;
     margin: 10px auto;
     display: flex;
@@ -174,4 +175,18 @@ form {
 .btn-sm {
     width: 50%;
     margin: auto
+}
+
+.checkboxDiv {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5px;
+    width: 50%;
+    border-bottom: 3px solid gold;
+}
+
+input[type=checkbox] {
+    width: auto
 }

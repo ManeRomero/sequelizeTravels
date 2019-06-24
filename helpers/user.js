@@ -149,9 +149,26 @@ let deleteUser = async (id) => {
         where: {
             id
         },
-        force: true, // CUANDO EL OBJETO sequelize TIENE LA PROPIEDAD 'paranoid: true', HEMOS DE 'FORZAR' EL BORRADO ASÍ
+        force: true // evita el problema con el atributo paranoid: true
     })
     return delUser
+}
+
+let userUpdate = async (id, data) => {
+    let update = await model.User.update({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            admin: data.admin,
+            active: data.active
+        },
+        {
+            where: {
+                id
+            }
+    })
+
+    return update[0]
 }
 
 module.exports = {
@@ -167,5 +184,6 @@ module.exports = {
     updateActive,
     isAdmin,
     listUsers,
-    deleteUser
+    deleteUser,
+    userUpdate
 }

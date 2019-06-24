@@ -1,7 +1,12 @@
 <div class="row">
     {{#if travels}}
         {{#each travels}}
-            {{> cardViaje}}
+            <div class="col-md-4 col-sm-12 card">
+                {{#if ../user.admin}}
+                    <small>here wil be the edit and erase buttons</small>
+                {{/if}}
+                {{> cardViaje}}
+            </div>
         {{/each}}
     {{else}}
         <div class="bg-dark mx-auto">

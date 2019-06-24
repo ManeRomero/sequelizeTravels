@@ -1,0 +1,28 @@
+
+{{#with user}}
+    <form action="/user/edit/{{id}}/?_method=PUT" method="POST" class="p-4 card">
+        <input name="name" type="text" placeholder="Tu nombre.." required value="{{name}}">
+        <input name="email" type="mail" placeholder="Dirección mail.." required value="{{email}}">
+        <input name="userPassword" type="password" placeholder="Contraseña.." required>
+
+        <div class="checkboxDiv">
+            <small>Activado:</small>
+            {{#if active}}
+                <input type="checkbox" name="active" value="true" checked>
+            {{else}}
+                <input type="checkbox" name="active" value="true">            
+            {{/if}}
+        </div>
+
+        <div class="checkboxDiv">
+            <small>Admin:</small>
+            {{#if admin}}
+                <input type="checkbox" name="admin" value="true" checked> 
+            {{else}}
+                <input type="checkbox" name="admin" value="true"> 
+            {{/if}}
+        </div>
+
+        <button class="mt-4 btn btn-sm btn-success" type="submit">Actualiza</button>
+    </form>
+{{/with}}
