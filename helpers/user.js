@@ -3,9 +3,9 @@ const model = require('../models')
 const SALT_ROUNDS = 10
 const email = require('../config/nodemailer')
 const hbs = require('nodemailer-express-handlebars')
-const helper = require('./nodemailer')
+const mailHelper = require('./nodemailer')
 
-checkMail = async (email) => {
+let checkMail = async (email) => {
     let result = await model.User.findAll({
         where: {
             email
@@ -19,17 +19,17 @@ checkMail = async (email) => {
     }
 }
 
-encryptPassword = async (password) => {
+let encryptPassword = async (password) => {
     let newPassword = await bcrypt.hash(password, SALT_ROUNDS)
     return newPassword
 }
 
-comparePass = async (password, encrypted) => {
+let comparePass = async (password, encrypted) => {
     let checking = await bcrypt.compare(password, encrypted)
     return checking
 }
 
-mailToLogIn = async (email) => {
+let mailToLogIn = async (email) => {
     let result = await model.User.findAll({
         where: {
             email
@@ -43,17 +43,21 @@ mailToLogIn = async (email) => {
     return result[0]['password']
 }
 
-getUserDataByEmail = async (email) => {
+let getUserDataByEmail = async (email) => {
     let result = await model.User.findAll({
         where: {
             email
         }
     })
 
-    return result[0]['dataValues']
+    if (result[0] === undefined) {
+        return -1
+    } else {
+        return result[0]['dataValues']
+    }
 }
 
-getUserDatabyId = async (id) => {
+let getUserDatabyId = async (id) => {
     let result = await model.User.findOne({
         where: {
             id
@@ -64,7 +68,7 @@ getUserDatabyId = async (id) => {
 }
 
 
-goAdmin = async (id) => {
+let goAdmin = async (id) => {
     await model.User.update({
         admin: 1
     }, {
@@ -76,9 +80,9 @@ goAdmin = async (id) => {
     return 'OK'
 }
 
-sendMail = async (dataEmail) => {
+let sendMail = async (dataEmail) => {
     let userData = await getUserDataByEmail(dataEmail)
-    const hash = `${helper.codexName()}-${Date.now()}`
+    const hash = `${mailHelper.codexName()}-${Date.now()}`
     let save = await saveHash(hash, userData.id)
     const userName = userData.name
 
@@ -95,7 +99,7 @@ sendMail = async (dataEmail) => {
             }
         }
 
-        email.transporter.use('compile', hbs(helper.transporter))
+        email.transporter.use('compile', hbs(mailHelper.transporter))
         email.transporter.sendMail(message, (err, info) => {
             if (err) {
                 res.status(500).send(err, message)
@@ -104,33 +108,65 @@ sendMail = async (dataEmail) => {
             }
         })
     } else {
-        return 'UNA MIERDA PINCHÁ EN UN PALO'
+        return -1
     }
 }
 
-saveHash = (code, UserId) => {
+let mailToForgotten = async (dataEmail) => {
+    let userData = await getUserDataByEmail(dataEmail)
+    let userName = userData.name
+    let id = userData.id
+
+    let hash = await getHashById(id)
+    console.log(hash, 'C LC C C HASH');
+
+    let message = {
+        to: dataEmail,
+        subject: 'sequelizeTravels: Recupera tu contraseña!',
+        template: 'forgottenPassword',
+        context: {
+            texto: `El mail fue enviado en ${new Date()}.`,
+            userName,
+            hash,
+            id
+        }
+    }
+
+    email.transporter.use('compile', hbs(mailHelper.transporter))
+    email.transporter.sendMail(message, (err, info) => {
+        if (err) {
+            res.status(500).send(err, message)
+        } else {
+            email.transporter.close()
+        }
+    })
+}
+
+let saveHash = (code, UserId) => {
     return model.Hash.create({
         code,
         UserId
     })
 }
 
-checkActivation = async (id) => {
+let checkActivation = async (id) => {
     let data = await getUserDatabyId(id)
     return data.active
 }
 
-updateActive = async (id) => {
-    await model.User.update({
+let updateActive = async (id) => {
+    let result = await model.User.update({
         active: 1
     }, {
         where: {
             id
         }
     })
+
+    return result[0]
 }
 
-isAdmin = async (req, res, next) => {
+let isAdmin = async (req, res, next) => {
     if (req.session.admin) {
         next()
     } else {
@@ -156,16 +192,62 @@ let deleteUser = async (id) => {
 
 let userUpdate = async (id, data) => {
     let update = await model.User.update({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            admin: data.admin,
-            active: data.active
-        },
-        {
-            where: {
-                id
-            }
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        admin: data.admin,
+        active: data.active
+    }, {
+        where: {
+            id
+        }
+    })
+
+    return update[0]
+}
+
+let getHashById = async (UserId) => {
+    let result = await model.Hash.findOne({
+        where: {
+            UserId
+        }
+    })
+
+    return result['dataValues'].code
+}
+
+let updatePassword = async (id, password) => {
+    let result = await model.User.update({
+        password
+    }, {
+        where: {
+            id
+        }
+    })
+
+    return result[0]
+}
+
+let checkHash = async (UserId, code) => {
+    let checking = await model.Hash.findOne({
+        code
+    }, {
+        where: {
+            UserId
+        }
+    })
+
+    return checking['dataValues'].code
+}
+
+let changeHash = async (UserId) => {
+    const code = `${mailHelper.codexName()}-${Date.now()}`
+    let update = await model.Hash.update({
+        code
+    }, {
+        where: {
+            UserId
+        }
     })
 
     return update[0]
@@ -185,5 +267,9 @@ module.exports = {
     isAdmin,
     listUsers,
     deleteUser,
-    userUpdate
+    userUpdate,
+    mailToForgotten,
+    updatePassword,
+    checkHash,
+    changeHash
 }

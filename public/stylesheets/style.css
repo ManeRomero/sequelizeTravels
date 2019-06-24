@@ -80,7 +80,6 @@ form {
   flex-direction: column;
 }
 form input {
-  cursor: pointer;
   padding: 3vw;
   background: transparent;
   border: 0;
@@ -95,6 +94,13 @@ form input::placeholder {
   color: #262c31;
   font-size: 1em;
   text-align: center;
+}
+form small {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  margin-top: 10px;
+  border-bottom: 3px solid grey;
 }
 
 #logOut:hover {

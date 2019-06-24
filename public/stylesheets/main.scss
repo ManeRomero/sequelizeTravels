@@ -88,7 +88,6 @@ form {
     flex-direction: column;
 
     input {
-        cursor: pointer;
         padding: 3vw;
         background: transparent;
         border: 0;
@@ -104,6 +103,14 @@ form {
             font-size: 1em;
             text-align: center
         }
+    }
+
+    small {
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+        border-bottom: 3px solid grey
     }
 }
 
