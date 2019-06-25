@@ -5,8 +5,20 @@ let saveTravel = (travel) => {
 }
 
 let getTravels = async () => {
-    let data = await model.Travel.findAll()
-    return data
+    let travels = await model.Travel.findAll()
+    let images = await model.Image.findAll()
+    let mainImages = await model.MainImage.findAll()
+
+    let arrAllImgsId = images.map(img => img.id)
+    let arrAllImgPaths = images.map(img => img.path)
+    let arrMainImgId = mainImages.map(main => main.ImageId)
+
+    for (let i = 0; i < travels.length; i++) {
+        let indexForPath = arrAllImgsId.indexOf(arrMainImgId[i])
+        travels[i].mainImagePath = `/uploads/${arrAllImgPaths[indexForPath]}`
+    }
+    console.log(travels, 'C L G TRAVELS');
+    return travels
 }
 
 let detail = async (id) => {
