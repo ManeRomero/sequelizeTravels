@@ -1,12 +1,12 @@
 
 {{#with travel}}
-<form action="/travel/create" method="POST">
-    <input value="{{destiny}}" name="destiny" type="text" placeholder="Destino.." required>
-    <input value="{{price}}" min="100" step="20" name="price" type="number" placeholder="Precio.." required>
-    <input value="{{discount}}" max="50" step="5" name="discount" type="number" placeholder="Descuento..">
-    <input value="{{dateInit}}" type="datetime-local" name="dateInit" placeholder="Fecha Salida.."required>
-    <input value="{{dateTurn}}" type="datetime-local" name="dateTurn" placeholder="Fecha Vuelta.."required>
-    <input value="{{imgpath}}" type="text" name="imgpath" placeholder="Ruta imagen.."required>
-    <button type="submit">Actualiza el Viaje</button>
-</form>
+    <form action="/travel/update/?_method=PUT" method="POST">
+        <input type="hidden" name="id" value="{{id}}">
+        <input value="{{destiny}}" name="destiny" type="text" placeholder="Destino.." required>
+        <input value="{{price}}" min="100" step="20" name="price" type="number" placeholder="Precio.." required>
+        <input value="{{discount}}" max="50" step="5" name="discount" type="number" placeholder="Descuento..">
+        <input value="{{dateInit}}" type="datetime-local" name="dateInit" placeholder="Fecha Salida.."required>
+        <input value="{{dateTurn}}" type="datetime-local" name="dateTurn" placeholder="Fecha Vuelta.."required>
+        <button type="submit">Actualiza el Viaje</button>
+    </form>
 {{/with}}

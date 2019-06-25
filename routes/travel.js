@@ -3,15 +3,16 @@ const router = express.Router();
 const controller = require('../controller/travel')
 const multerConfig = require('../config/multer')
 const imageController = require('../controller/image')
-const helper = require('../helpers/user')
+const userHelper = require('../helpers/user')
+const { isAdmin } = require('../helpers/user')
 
-router.get('/create', helper.isAdmin, travelForm)
-router.post('/create', helper.isAdmin, multerConfig.array('travelPics', 10), createTravel)
+router.get('/create', isAdmin, travelForm)
+router.post('/create', isAdmin, multerConfig.array('travelPics', 10), createTravel)
 router.get('/detail/:id', showTravel)
-router.get('/update/:id', helper.isAdmin, editTravelForm)
-router.post('/create/mainPic', helper.isAdmin, postMainPic)
-
-/* FUNCTIONS */
+router.get('/edit/:id', isAdmin, editTravelForm)
+router.post('/create/mainPic', isAdmin, postMainPic)
+router.put('/update/', isAdmin, updateTravel)
+router.delete('/delete/:idToDelete', isAdmin, deleteTravel)
 
 function travelForm(req, res) {
 
@@ -26,7 +27,7 @@ function travelForm(req, res) {
 async function createTravel(req, res) {
 
     let UserId = req.session.userId
-    let author = await helper.getUserDatabyId(UserId)
+    let author = await userHelper.getUserDatabyId(UserId)
 
     let {
         destiny,
@@ -95,6 +96,53 @@ async function postMainPic(req, res) {
         req.flash('error_msg', 'ERROR!! No Se ha determinado la imagen principal.')
         /* toDo - función que elimine el viaje creado previamente */
         res.redirect('/travel/create')
+    }
+}
+
+async function updateTravel (req, res) {
+    let id = req.body.id
+    let {
+        destiny,
+        price,
+        discount,
+        dateInit,
+        dateTurn
+    } = req.body
+
+    let author = req.session.name
+    let UserId = req.session.userId
+    
+    let travel = {
+        destiny,
+        price,
+        discount,
+        dateInit,
+        dateTurn,
+        UserId,
+        author
+    }
+
+    let update = await controller.updateTravel(id, travel)
+    
+    if (update === 1) {
+        req.flash('success_msg', `Genial! Viaje con destino a ${destiny} actualizado exitosamente.`)
+        res.redirect('/')
+    } else {
+        req.flash('error_msg', 'Error en la actualización del Viaje. Introduzca de nuevo los datos.')
+        res.redirect('')
+    }
+}
+
+async function deleteTravel (req, res) {
+    let id = req.params.idToDelete
+    let erase = await controller.deleteTravel(id)
+
+    if (erase === 1) {
+        req.flash('success_msg', 'Viaje eliminado satisfactoriamente')
+        res.redirect('/')
+    } else {
+        req.flash('error_msg', 'Hubo problemas con la eliminación del viaje')
+        res.redirect('/')
     }
 }
 
