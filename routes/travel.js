@@ -4,7 +4,10 @@ const controller = require('../controller/travel')
 const multerConfig = require('../config/multer')
 const imageController = require('../controller/image')
 const userHelper = require('../helpers/user')
-const { isAdmin } = require('../helpers/user')
+const {
+    isAdmin
+} = require('../helpers/user')
+const MicroModal = require('micromodal')
 
 router.get('/create', isAdmin, travelForm)
 router.post('/create', isAdmin, multerConfig.array('travelPics', 10), createTravel)
@@ -64,7 +67,7 @@ async function createTravel(req, res) {
 async function showTravel(req, res) {
     let travel = await controller.detail(req.params.id)
     let images = await imageController.getImagesById(req.params.id)
-    
+
     res.render('travel/detail', {
         travel,
         images
@@ -99,7 +102,7 @@ async function postMainPic(req, res) {
     }
 }
 
-async function updateTravel (req, res) {
+async function updateTravel(req, res) {
     let id = req.body.id
     let {
         destiny,
@@ -111,7 +114,7 @@ async function updateTravel (req, res) {
 
     let author = req.session.name
     let UserId = req.session.userId
-    
+
     let travel = {
         destiny,
         price,
@@ -123,7 +126,7 @@ async function updateTravel (req, res) {
     }
 
     let update = await controller.updateTravel(id, travel)
-    
+
     if (update === 1) {
         req.flash('success_msg', `Genial! Viaje con destino a ${destiny} actualizado exitosamente.`)
         res.redirect('/')
@@ -133,7 +136,8 @@ async function updateTravel (req, res) {
     }
 }
 
-async function deleteTravel (req, res) {
+async function deleteTravel(req, res) {
+
     let id = req.params.idToDelete
     let erase = await controller.deleteTravel(id)
 

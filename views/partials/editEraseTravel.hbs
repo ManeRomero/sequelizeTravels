@@ -1,0 +1,13 @@
+<div class="row">
+    <a href="/travel/edit/{{id}}">
+        <button class="btn btn-sm btn-outline-info">
+            <i class="far fa-edit"></i> Editar
+        </button>
+    </a>
+
+    <form action="/travel/delete/{{id}}/?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-sm btn-outline-danger">
+            <i class="fas fa-slash"></i> Eliminar
+        </button>
+    </form>
+</div>

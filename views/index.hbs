@@ -1,21 +1,9 @@
 <div class="row">
     {{#if travels}}
     {{#each travels}}
-    <div class="col-md-4 col-sm-12 card">
+    <div class="col-md-3 col-sm-12 card">
         {{#if ../user.admin}}
-            <div class="row">
-                <a href="/travel/edit/{{id}}">
-                    <button class="btn btn-sm btn-outline-info">
-                        <i class="far fa-edit"></i> Editar
-                    </button>
-                </a>
-
-                <form action="/travel/delete/{{id}}/?_method=DELETE" method="POST">
-                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                        <i class="fas fa-slash"></i> Eliminar
-                    </button>
-                </form>
-            </div>
+            {{> editEraseTravel}}
         {{/if}}
         {{> cardViaje}}
     </div>

@@ -1,4 +1,3 @@
-
 {{#with travel}}
 <div class="container">
     <div class="detailInfo mt-4">
@@ -14,9 +13,17 @@
     </div>
 
     <div>
-        {{#each ../images}}          
-            <img class="img-fluid col-md-3 col-sm-12" src="/uploads/{{path}}" alt="Foto ">
-        {{/each}}
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#each ../images}}
+                <img src="/uploads/{{path}}" alt="Fotografía" class="swiper-slide">
+                {{/each}}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-scrollbar"></div>
+        </div>
     </div>
 
     <div class="row mt-2 detailInfo">

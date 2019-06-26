@@ -17,7 +17,6 @@ let getTravels = async () => {
         let indexForPath = arrAllImgsId.indexOf(arrMainImgId[i])
         travels[i].mainImagePath = `/uploads/${arrAllImgPaths[indexForPath]}`
     }
-    console.log(travels, 'C L G TRAVELS');
     return travels
 }
 
@@ -48,15 +47,32 @@ let updateTravel = async (id, data) => {
 }
 
 let deleteTravel = async (id) => {
+    let TravelId = id
+    
+    let delImage = await model.Image.destroy({
+        where: {
+            TravelId
+        },
+        force: true
+    })
+    
+    
+    let delMainImages = await model.MainImage.destroy({
+        where: {
+            TravelId
+        },
+        force: true
+    })
+    
     let delTravel = await model.Travel.destroy({
         where: {
             id
         },
         force: true // evita el problema con el atributo paranoid: true
     })
+
     return delTravel
 }
-
 
 module.exports = {
     saveTravel,

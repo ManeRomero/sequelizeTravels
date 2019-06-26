@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Travel.associate = function (models) {
         models.Travel.belongsTo(models.User)
-        models.Travel.hasMany(models.Image)
-        models.Travel.hasOne(models.MainImage)
+        models.Travel.hasMany(models.Image, {onDelete: 'cascade'})
+        models.Travel.hasOne(models.MainImage, {onDelete: 'cascade'})
     }
 
     return Travel
