@@ -4,10 +4,7 @@ const controller = require('../controller/travel')
 const multerConfig = require('../config/multer')
 const imageController = require('../controller/image')
 const userHelper = require('../helpers/user')
-const {
-    isAdmin
-} = require('../helpers/user')
-const MicroModal = require('micromodal')
+const { isAdmin } = require('../helpers/user')
 
 router.get('/create', isAdmin, travelForm)
 router.post('/create', isAdmin, multerConfig.array('travelPics', 10), createTravel)
